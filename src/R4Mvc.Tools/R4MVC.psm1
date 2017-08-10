@@ -25,21 +25,15 @@ function Generate-R4MVC
         [string] $Project)
 
     $dteProject = GetProject $Project
+    $r4mvcPath = Join-Path (Split-Path $PSCommandPath) "dotnet-r4mvc.exe"
 
-    # NB: -join is here to support ConvertFrom-Json on PowerShell 3.0
-    (R4MVC.Tools $dteProject.FullName)
-    Write-Output 'To undo this action, use Remove-Migration.'
+    & $r4mvcPath $dteProject.FullName
 }
 
 
 #
 # (Private Helpers)
 #
-
-function GetProjects
-{
-    return Get-Project -All | %{ $_.ProjectName }
-}
 
 function GetProject($projectName)
 {
@@ -54,8 +48,8 @@ function GetProject($projectName)
 # SIG # Begin signature block
 # MIIe8AYJKoZIhvcNAQcCoIIe4TCCHt0CAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU6waS7HBu2w1aGoa9NApZWnX5
-# 7qSgghkcMIIF2DCCA8CgAwIBAgIQbDvSft08lJ6Vjiips8dXoDANBgkqhkiG9w0B
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU/CN4IFszH2QaisGToV7NUDFs
+# CNagghkcMIIF2DCCA8CgAwIBAgIQbDvSft08lJ6Vjiips8dXoDANBgkqhkiG9w0B
 # AQsFADB9MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjErMCkG
 # A1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzEpMCcGA1UE
 # AxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTUxMjE2MDEw
@@ -194,28 +188,28 @@ function GetProject($projectName)
 # dHkxIzAhBgNVBAMTGlN0YXJ0Q29tIENsYXNzIDIgT2JqZWN0IENBAhBAPVEUYJRI
 # bRTqOS7gDAEkMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAA
 # MBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgor
-# BgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBT+T7w+Nc5kzgPqYiTHEz7e878u4DAN
-# BgkqhkiG9w0BAQEFAASCAgAufo6emNXNOC6ZHWzRrQZnnwHt3VSWvCT7IzWu7zjX
-# LJccbjKZYERuUNs1cKQxl/S9IIrfyvV2Xrp3iz8WCHYAOV2N4M01iW7k0XYBcskf
-# rIL0ZTM/A12dZSjYpZe7kDaMnlY9UZUOiyXmvqPkwp4IzZ+do2CARLqm157DX3Dj
-# yJem0KAzYUlX0Gb5vcZgfXRc4yhivhPi8Ww3OiTkYJw2SZP0RRDWBYmjsD9Nwygd
-# rio9V8pfpIBh2/wGCz6gxOTTtWtuRYbD4RtsrI+a80G8/1r8unZpEC1mF4BjHJba
-# 7Vd6W+N1aCD2Jg3BlT6PjrdzHN/BfPqq7+ClxsZMXxO7lkjK+CndFh1tT+eH5U5c
-# ROdiVEKcKnQGWOQwT3tuBViSmw5BWSGoh71Rs3c3A/STPFFvd2lfK/9f1namr4mO
-# p3R1zLyBXJfVNy7sj9wojDHED9XuVAxXgu4cR7Ozh73ra+RcUMaVRyyLlYJS3CXF
-# gEv9hN/5KV9swzRXnsj2+6lpBdBMXASeT1y4E2MI1cR3T+0lUm2if9s/XrNSFxTV
-# iAqlOkJxfxG/7vepOk/HY8glsnGyqZ+k/4m3rEdmoXyHlWelRdGAUeIgq/0Gz7sC
-# e6VHsmewvzl5aH9sA3vl4Ia0fhs+LMcgwGIs1CpH8AqDpcJQbTJabquZQs/yv5Cg
-# mqGCAg8wggILBgkqhkiG9w0BCQYxggH8MIIB+AIBATB2MGIxCzAJBgNVBAYTAlVT
+# BgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBQHpEH09Y/v6M6Ke29g6H7HMdEMhTAN
+# BgkqhkiG9w0BAQEFAASCAgBy54N95s4cnJGg/HD/KGsgrZLh0OY8ctIYYoTYR5Nw
+# uUYbfrCRBQbwRRM+l8anlWOD5L0EfM1dYr5X0xtdWPMcoGtvnDnkBTt/jvN479bs
+# jwsEdul4BvrPUmaZ/1ofGisb0cMCgsMLGbVvsq8DFAqTkZ/F9DaPsGY/zpl+d9W8
+# kLlRuRRxFL33EgaZpedD/uaeOklKJbL3MkMmM/UhDJvKjXp5m4O5U+qWwCs8GjUx
+# g9AUe6Tc3+Eqy45RBdkMNOGBrGONFyggiLGDT36JAW4osor5OlZiukiYOrwV8DtV
+# 0Iz+8v9b5Hszwg1vCl6sUqppXZc+o5mF2ul0vzlSDvw08MzX8IEOByDat0/Mup6B
+# 8U2inRnm+8mq8BUl20wE2fMLle8VPnOWFlqXtS0SQMDbs1ca87IrohyLMddBLuqU
+# 7O81rtParkjXoc+oB07eyb6vT3HM8jw9MsLRYle7s5GqGTXHGjaBkkwmiuWrUGUv
+# /YPlKe6a22rpU143+MPqMrrs3jHdYuNGkq9vZON2P3M7Tj1H0VFwQwmpJNxnupAl
+# /azGXpdEdygeOaxhfAh1FWe1GWjvbT8pGeLvuVNuQWnaYa6PpCY2LDfcGJNCIsYY
+# cviUbAcVCHYQspAiUXzH/J2UkgK0Lzh85pBgrxBL/US+5o8eUKuwpOIeJ9s/wRO1
+# SKGCAg8wggILBgkqhkiG9w0BCQYxggH8MIIB+AIBATB2MGIxCzAJBgNVBAYTAlVT
 # MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j
 # b20xITAfBgNVBAMTGERpZ2lDZXJ0IEFzc3VyZWQgSUQgQ0EtMQIQAwGaAjr/WLFr
 # 1tXq5hfwZjAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAc
-# BgkqhkiG9w0BCQUxDxcNMTcwNjAyMDg1OTE1WjAjBgkqhkiG9w0BCQQxFgQUe1WT
-# VjEaNR0HQqceOMnv2jDmfn4wDQYJKoZIhvcNAQEBBQAEggEAEtiw+V6pSt1WiOTN
-# gRs9Mr9PrMh1ehWZG4ADiOebVhiZJ3ZzFC79kniHYcClqQXDBbxSFvFjnUqAmYvX
-# Va0h/L8ZwJ0siVASNeff51TOm3UOCPg/Ecq7Go7cidOSRLb9AvPGZrXaIqxvsXNJ
-# N2kXv3hbGHd8FwcYMkKs7f19oggUQxMJsyuXlyciq0FYnMatq9dLoC0+zuOTwdCi
-# OCDmhSdJSh7J3IvoWmeOeCksArncDhzEu6h2Vc9hiRlA2+EL6FPaZxnigPTWKgOr
-# bmeHoZQeVdubZLmVQhZ16HTTubl8Gop0QinGPJBxoiJ11zND81263T/AgiZC4kQR
-# oT/aPQ==
+# BgkqhkiG9w0BCQUxDxcNMTcwODEwMjIwMDU5WjAjBgkqhkiG9w0BCQQxFgQUu0Hr
+# sb16/dQKG2veDV8p6oiNc04wDQYJKoZIhvcNAQEBBQAEggEAHLLT5zwdqf5iYrES
+# T/1z4upGWdXQum8jhjBycTGUcBdGw2ahkxkyqUaiNoZ10mck/M0TBYmsv8pZp3oE
+# At/xwo8fo9LbNZT7g2TMaQIC+CJad9UwBAN318heBDPCdadd44QhKUsPNKUxBoGk
+# TjRKUfPDW9uEgGt2aZSbUj3ndKCse/XvKRLnsRoHnVC9CH4+UymzZEwJCvP1u8gi
+# epJWnoE1BSOxvKj0Zpu9fM74R6T01JpDXPA1ahfCmXvBrRCI2DQqkNOCbhYtN64d
+# GZTjk4cjZKOCsr6CSlD8uuGg29thOulh65VAKiiCdgZmwBbeJt4GMg2dXL93OaOB
+# 2KEX2A==
 # SIG # End signature block

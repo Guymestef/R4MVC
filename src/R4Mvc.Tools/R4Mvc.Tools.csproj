@@ -3,16 +3,23 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net462</TargetFramework>
-    <PackageProjectUrl>https://github.com/T4MVC/R4MVC</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/artiomchi/R4MVC</RepositoryUrl>
-    <VersionPrefix>0.6.0</VersionPrefix>
-    <IsTool>True</IsTool>
+    <AssemblyName>dotnet-r4mvc</AssemblyName>
     <ContentTargetFolders>tools</ContentTargetFolders>
     <DevelopmentDependency>True</DevelopmentDependency>
+    <IncludeBuildOutput>False</IncludeBuildOutput>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  <PropertyGroup>
+    <PackageId>R4Mvc.Tools</PackageId>
+    <Authors>Kevin Kuszyk, Scott Mackay, Artiom Chilaru</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/T4MVC/R4MVC/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/T4MVC/R4MVC</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/T4MVC/R4MVC</RepositoryUrl>
+    <Title>R4Mvc Tools</Title>
+    <Description>R4Mvc is a tool that generates strongly typed helpers for ASP.NET Core MVC.</Description>
+    <PackageTags>aspnetcore mvc r4mvc</PackageTags>
+    <VersionPrefix>1.0.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +29,10 @@
     <Content Include="bin\$(Configuration)\$(TargetFramework)\*.dll">
       <PackagePath>tools</PackagePath>
     </Content>
-    <Content Include="bin\$(Configuration)\$(TargetFramework)\R4MVc.Tools.exe.config">
+    <Content Include="bin\$(Configuration)\$(TargetFramework)\dotnet-r4mvc.exe">
+      <PackagePath>tools</PackagePath>
+    </Content>
+    <Content Include="bin\$(Configuration)\$(TargetFramework)\dotnet-r4mvc.exe.config">
       <PackagePath>tools</PackagePath>
     </Content>
   </ItemGroup>

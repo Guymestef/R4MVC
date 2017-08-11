@@ -20,6 +20,7 @@ install:
 - ps: $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"
 
 before_build:
+- ps: 'Write-Output ("Build version suffix: " + $Env:VersionSuffixValue)'
 - ps: dotnet --info
 - ps: dotnet restore -v Minimal
 
@@ -48,6 +49,7 @@ for:
     - /feature\/.*/
 
   init:
+  - ps: $Env:VersionSuffixParam = "--version-suffix"
   - ps: $Env:VersionSuffixValue = ("ci-" + $Env:APPVEYOR_REPO_BRANCH.Substring(8) + "-" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0"))
 
   deploy:
@@ -63,6 +65,7 @@ for:
     - /prerelease\/.*/
 
   init:
+  - ps: $Env:VersionSuffixParam = "--version-suffix"
   - ps: $Env:VersionSuffixValue = ($Env:APPVEYOR_REPO_BRANCH.Substring(11) + "-" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0"))
 
   deploy:
